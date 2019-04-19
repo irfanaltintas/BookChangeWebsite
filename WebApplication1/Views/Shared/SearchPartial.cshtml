@@ -1,0 +1,15 @@
+﻿
+<h2>Ara <span></span></h2>
+@using (Html.BeginForm("SearchBook", "Home", FormMethod.Post, new {enctype = "multipart/form-data" }))
+{
+    <div class="box-content">
+
+        <br>
+        <label>Kitap Adı</label>
+        <input id="ara" name="ara" type="text" class="field" />
+
+        <input type="submit" class="search-submit" value="ara" />
+        <p>lütfen aramak istediğiniz kelimeyi giriniz </p>
+
+    </div>
+}

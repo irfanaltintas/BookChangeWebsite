@@ -1,0 +1,92 @@
+﻿@model IEnumerable<WebApplication1.Models.Book>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Books</h2>
+
+<p>
+    @Html.ActionLink("New Book", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.cname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.b_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.photo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.writer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.p_house)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.aboutbook)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.cname)
+        </td>
+        <td>
+            @if (item.b_name.Length > 16)
+            {
+                <p>
+                    @Html.Raw(item.b_name.Substring(0, 16)) ...
+                </p>
+            }
+            else
+            {
+                <p>
+                    @Html.Raw(item.b_name) 
+                </p>
+            }
+        </td>
+        <td>
+            <img width="75" src="@item.photo" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.writer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.p_house)
+        </td>
+        <td>
+            @if (item.aboutbook.Length > 10)
+            {
+                <p>
+                    @Html.Raw(item.aboutbook.Substring(0, 10)) ...
+                </p>
+            }
+            else
+            {
+                <p>
+                    @Html.Raw(item.aboutbook) ...
+                </p>
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_id)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.book_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.book_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.book_id })
+        </td>
+    </tr>
+}
+
+</table>

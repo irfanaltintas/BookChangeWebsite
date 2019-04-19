@@ -1,0 +1,31 @@
+﻿@model WebApplication1.Models.Book
+
+@{
+    ViewBag.Title = "TakeBook";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>TakeBook</h2><br />
+
+<button type="submit" id="sure" class="btn-danger">Take Book</button><br />
+
+<script src="~/Content/js/jquery.js"></script>
+<script src="~/Content/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#sure").click(function () {
+            $.ajax({
+                url: '/UserBook/MinusCredit/',
+                data: { userid: @Session["userid"], bookid : @Model.book_id},
+                type: 'POST',
+                success: function (data) {
+                    alert("Order Succesful");
+                }
+            });
+        })
+    })
+</script>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,92 @@
+﻿@model IEnumerable<WebApplication1.Models.Book>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if(Session["userid"]!= null)
+{
+    @ViewBag.kredi
+}
+
+<div id="slider" class="box">
+    <div id="slider-holder">
+        <ul>
+            <li><a href="#"><img src="/Content/css/images/slide5.jpg" alt="" /></a></li>
+            <li><a href="#"><img src="/Content/css/images/slide3.jpg" alt="" /></a></li>
+            <li><a href="#"><img src="/Content/css/images/slide4.jpg" alt="" /></a></li>
+            <li><a href="#"><img src="/Content/css/images/slide2.jpg" alt="" /></a></li>
+        </ul>
+    </div>
+    <div id="slider-nav"> <a href="#" class="active">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> </div>
+</div>
+
+<div class="products">
+    <div class="cl">&nbsp;</div>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li class="product">
+                <a href="/Home/BookDetails/@item.book_id"><img src="@item.photo" alt="@item.b_name" /></a>
+                <div class="product-info">
+                    <a href="/Home/BookDetails/@item.book_id"><h3>@item.b_name</h3></a>
+                    <div class="product-desc">                       
+                        <h5>Kitap Hakkında</h5>
+                        @if (item.aboutbook.Length > 10)
+                        {
+                            <p>
+                                @Html.Raw(item.aboutbook.Substring(0, 10)) ...
+                            </p>
+                        }
+                        else
+                        {
+                            <p>
+                                @Html.Raw(item.aboutbook) ...
+                            </p>
+                        }
+                            <h5>Yazar </h5>
+                        <p>@item.writer</p>
+                        <h5>Kullanıcı</h5>
+                        @if (item.user_id != null)
+                        {
+                            <a href="/User/UserProfil/@item.User.user_id"><p>@item.User.u_name</p></a>
+                        }
+                        
+
+                        @if (Session["userid"] != null)
+                        {
+                            if (Convert.ToInt32(Session["userid"]) != item.user_id)
+                            {
+                                if (Convert.ToInt32(Session["credit"]) > 0)
+                                {
+                                    if (item.request > 0)
+                                    {
+                                    <h2>bu kitap istenmiş durumda </h2>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-primary" href="/Home/BookDetails/@item.book_id">Kitabı Al</a>
+                                    }
+
+                                }
+                                else
+                                {
+                                        <i>Kredi kazanmak icin kitap ekleyin</i>
+                                }
+
+                            }
+
+                        }
+                        else
+                        {
+                                        <i>Kitap almak icin giriş yapınız </i>
+                        }
+                        
+                    </div>
+                </div>
+            </li>
+
+        }
+    </ul>
+    <div class="cl">&nbsp;</div>
+</div>

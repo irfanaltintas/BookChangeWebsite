@@ -1,0 +1,83 @@
+﻿@model WebApplication1.Models.Book
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Book</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.cname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.cname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.u_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.u_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.b_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.b_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.photo)
+        </dt>
+
+        <dd>
+            <img src="@Model.photo" width="75" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.writer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.writer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.p_house)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.p_house)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.aboutbook)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aboutbook)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.request)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.request)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.book_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

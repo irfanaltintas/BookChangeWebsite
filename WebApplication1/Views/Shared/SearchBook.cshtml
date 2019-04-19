@@ -1,0 +1,70 @@
+﻿@model IEnumerable<WebApplication1.Models.Book>
+
+@{
+    ViewBag.Title = "SearchBook";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Kitap Ara</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            <h2>Kategori</h2>
+        </th>&nbsp;
+        
+        <th>
+            <h2>Kitap&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+        </th>
+        <th>
+            <h2>Resim</h2>
+        </th>
+        <th>
+            <h2>Yazar</h2>
+        </th>
+        <th>
+            <h2>Yayınevi</h2>
+        </th>
+        <th>
+            <h2>Kitap Hakkında</h2>
+        </th>
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.cname)&nbsp;&nbsp;
+        </td>
+        <td>
+            <a href="/Home/BookDetails/@item.book_id">@Html.DisplayFor(modelItem => item.b_name)</a>&nbsp;&nbsp;
+        </td>
+        <td>
+            <img class="img-responsive img-circle" width="150" src="@item.photo" />&nbsp;&nbsp;
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.writer)&nbsp;&nbsp;
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.p_house)&nbsp;&nbsp; 
+        </td>
+        @if (item.aboutbook.Length > 15)
+        {
+            <td>
+                @Html.Raw(item.aboutbook.Substring(0, 15)) ...
+            </td>
+
+        }
+        else
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.aboutbook)
+            </td>
+        }
+       
+       
+    </tr>
+}
+
+</table>

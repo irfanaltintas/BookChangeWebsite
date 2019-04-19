@@ -1,0 +1,165 @@
+﻿@model WebApplication1.Models.Book
+
+@{
+    ViewBag.Title = "BookDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Kitap Detay</h2>
+
+<div>
+    <h4>Kitap</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <h2>Kategori</h2>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.cname)
+        </dd>
+
+        <dt>
+            <h2>Kitap Adı</h2>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.b_name)
+        </dd>
+
+        <dt>
+            <h2>Resim</h2>
+        </dt>
+
+        <dd>
+            <img src="@Model.photo" width="100" class="img-circle img-responsive" alt="@Model.b_name" />
+        </dd>
+
+        <dt>
+            <h2>Yazar</h2>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.writer)
+        </dd>
+
+        <dt>
+            <h2>Yayınevi</h2>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.p_house)
+        </dd>
+
+        <dt>
+            <h2>Kitap Hakkında</h2>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aboutbook)
+        </dd>
+
+        <dt>
+            <h2>Kullanıcı</h2>
+        </dt>
+        @if (Model.user_id != null)
+        {
+            <dd>
+                <img src="@Model.User.photo" width="50" /><br /><a href="/User/UserProfil/@Model.user_id">@Model.User.u_name @Model.User.u_surname</a>
+            </dd>
+        }
+
+        @if(Convert.ToInt32(Session["userid"]) == Model.user_id)
+        {
+            <a href="/UserBook/Delete/@Model.book_id">sil</a>
+        }
+    </dl>
+    <p>
+        <br />
+        
+
+        @if (Convert.ToInt32(Session["userid"]) != Model.user_id && Session["userid"] != null)
+        {
+            <div>
+                @if (Convert.ToInt32(Session["credit"]) > 0)
+                {
+                    if(Model.request > 0)
+                    {
+                        <h2>bu kitap istendi</h2>
+                    }
+                    else
+                    {
+                        <a href="/UserBook/TakeBook/@Model.book_id">Kitabı Al</a>
+                    }
+
+                }
+                else
+                {
+                    <i>Kredi kazanmak için kitap ekleyin</i>
+                }
+            </div>
+
+        }
+
+        @Html.ActionLink("Anasayfaya Dön", "Index")
+    </p>
+
+    @if (Session["userid"] != null)
+    {
+        <div class="well">
+            <h2>Yorum</h2>
+            <form role="form">
+                <div class="form-group">
+                    <textarea id="yorum" typeof="text" class="form-control" rows="2"></textarea>
+                </div>
+                <button type="submit" id="gonder" class="btn btn-primary">Gönder</button>
+            </form>
+        </div><br />
+    }
+    else
+    {
+        <h4>Yorum yapmak için giriş yapınız..</h4>
+        <p><a href="/User/Login/">Giriş</a></p>
+    }
+    <div class="media">
+        @foreach (var item in Model.Comments.ToList())
+        {
+            <a class="pull-left" href="">
+                <img class="media-object" src="@item.User.photo" alt="" width="50" />
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">
+                    @item.User.u_name
+                    <small>@item.date</small>
+                </h4>
+                <h2>@item.context</h2> - @if (Convert.ToInt32(Session["userid"]) == item.user_id)
+                {
+                    <a class="btn btn-danger" href="/Home/DeleteComment/@item.comment_id">Sil</a>
+                }
+            </div>
+        }
+    </div>
+
+</div>
+
+
+<script src="~/Content/js/jquery.js"></script>
+<script src="~/Content/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#gonder").click(function () {
+            var yourcomment = $("#yorum").val();
+            $.ajax({
+                url: '/Home/CreateComment/',
+                data: { newcomment : yourcomment, bookid: @Model.book_id },
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                    alert("Comment Succesful : " + yourcomment);
+                }
+            });
+        });
+    })
+
+</script>

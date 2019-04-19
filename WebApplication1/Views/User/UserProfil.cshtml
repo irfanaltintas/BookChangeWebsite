@@ -1,0 +1,39 @@
+﻿@model WebApplication1.Models.User
+
+@{
+    ViewBag.Title = "UserProfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Kullanıcı Profili</h2>
+
+<div>
+
+    <hr /><br />
+
+    <h2>İsim</h2>
+
+    @Html.DisplayFor(model => model.u_name)
+
+   <h2>Soyisim</h2>
+
+    @Html.DisplayFor(model => model.u_surname)
+
+    <h2>Email</h2>
+
+    @Html.DisplayFor(model => model.email)
+
+    <h2>Resim</h2>
+
+    <img src="@Model.photo" width="75" />
+
+</div>
+<br />
+<h2>@Model.u_name Tarafından Eklenen Kitaplar</h2>
+<div>
+    @foreach (var item in Model.Books.ToList().Take(3))
+    {
+        <br />
+        <a href="/Home/BookDetails/@item.book_id"><img src="@item.photo" class="img-circle" width="150" /><br /></a>@item.b_name
+    }
+</div>

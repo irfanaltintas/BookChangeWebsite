@@ -1,0 +1,77 @@
+﻿@model WebApplication1.Models.Book
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Book</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <h2>Category</h2>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.cname)
+        </dd>
+
+        <dt>
+            <h2>User</h2>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.u_name)
+        </dd>
+
+        <dt>
+            <h2>Name</h2>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.b_name)
+        </dd>
+
+        <dt>
+            <h2>Photo</h2>
+        </dt>
+
+        <dd>
+            <img src="@Model.photo" width="75" />
+        </dd>
+
+        <dt>
+            <h2>Writer</h2>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.writer)
+        </dd>
+
+        <dt>
+            <h2>P.House</h2>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.p_house)
+        </dd>
+
+        <dt>
+            <h2>About Book</h2>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aboutbook)
+        </dd>
+
+        
+
+    </dl>
+</div><br />
+<p>
+   
+    @Html.ActionLink("Back to List", "Index")
+</p>
